@@ -132,25 +132,46 @@
     </script>
 
     <script>
-        $('.icon-tuichu').parent().on('click', function (e) {
-            e.preventDefault();
-            // 触发模态框
-            $('#myModal').modal({
-                keyboard: true
+        $(function () {
+            $('.icon-tuichu').parent().on('click', function (e) {
+                e.preventDefault();
+                // 触发模态框
+                $('#myModal').modal({
+                    keyboard: true
+                })
+                //给触发模态框确认按钮注册点击事件
+                $('.btn-primary').on('click', function () {
+                    $.ajax({
+                        type: 'post',
+                        url: 'http://localhost:8080/admin/user/logout',
+                        success: function (backData) {
+                            if (backData.code == 200) {
+                                window.location.href = './login.html';
+                            }
+                        }
+                    })
+                })
+
+
             })
-            //给触发模态框确认按钮注册点击事件
-            $('.btn-primary').on('click', function () {
-                $.ajax({
-                    type: 'post',
-                    url: 'http://localhost:8080/admin/user/logout',
+            $.ajax({
+                    url: 'http://localhost:8080/admin/user/info',
                     success: function (backData) {
                         if (backData.code == 200) {
-                            window.location.href = './login.html';
+                            $('.user_info>img').attr('src',
+                                backData
+                                    .data.userPic);
+                            $('.user_info>span').html(
+                                '欢迎&nbsp;&nbsp;' + backData.data
+                                    .nickname);
+                            $('.user_center_link>img').attr(
+                                'src',
+                                backData.data.userPic);;
                         }
                     }
                 })
-            })
         })
+
     </script>
 
 
