@@ -155,21 +155,28 @@
 
             })
             $.ajax({
-                    url: 'http://localhost:8080/admin/user/info',
-                    success: function (backData) {
-                        if (backData.code == 200) {
-                            $('.user_info>img').attr('src',
-                                backData
-                                    .data.userPic);
-                            $('.user_info>span').html(
-                                '欢迎&nbsp;&nbsp;' + backData.data
-                                    .nickname);
-                            $('.user_center_link>img').attr(
-                                'src',
-                                backData.data.userPic);;
-                        }
+                url: 'http://localhost:8080/admin/user/info',
+                success: function (backData) {
+                    if (backData.code == 200) {
+                        $('.user_info>img').attr('src',
+                            backData
+                                .data.userPic);
+                        $('.user_info>span').html(
+                            '欢迎&nbsp;&nbsp;' + backData.data
+                                .nickname);
+                        $('.user_center_link>img').attr(
+                            'src',
+                            backData.data.userPic);;
                     }
-                })
+                }
+            })
+            // /需求: 点击新增分类 按钮, 修改弹出来的模态框中的样式
+            $('#xinzengfenlei').on('click', function () {
+                //把弹出来的模态框里面的样式修改一下(title,确认按钮的文本改成修改,修改背景色)
+                $('#addModal .modal-title').html('新增分类');
+                $('#model_add').text('新增').removeClass('btn-success');
+
+            })
         })
 
     </script>
